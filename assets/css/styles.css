@@ -1,4 +1,4 @@
-/* Reset and Base Styles */
+﻿/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -17,8 +17,55 @@
     --text-dark: #2C1810;
     --text-light: #6B5B73;
     --shadow: rgba(0, 0, 0, 0.1);
+    --surface: #FFFFFF;
+    --surface-muted: #FFF8DC;
+    --surface-soft: #FFFACD;
+    --border-color: rgba(44, 24, 16, 0.12);
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --nav-bg-scrolled: rgba(255, 255, 255, 0.98);
+    --overlay-strong: rgba(0, 0, 0, 0.75);
     --gradient-primary: linear-gradient(135deg, var(--primary-red), var(--dark-red));
     --gradient-gold: linear-gradient(135deg, var(--gold), var(--saffron));
+}
+
+body.cream-mode {
+    --primary-red: #B71C1C;
+    --gold: #FFD700;
+    --saffron: #FF8C00;
+    --white: #FFFFFF;
+    --cream: #FFF8DC;
+    --dark-red: #8B0000;
+    --light-gold: #FFFACD;
+    --text-dark: #2C1810;
+    --text-light: #6B5B73;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --surface: #FFFFFF;
+    --surface-muted: #FFF8DC;
+    --surface-soft: #FFFACD;
+    --border-color: rgba(44, 24, 16, 0.12);
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --nav-bg-scrolled: rgba(255, 255, 255, 0.98);
+    --overlay-strong: rgba(0, 0, 0, 0.75);
+}
+
+body.dark-mode {
+    --primary-red: #F46A6A;
+    --gold: #F6C85F;
+    --saffron: #D9922E;
+    --white: #FFFFFF;
+    --cream: #11100E;
+    --dark-red: #8E2626;
+    --light-gold: #2B2414;
+    --text-dark: #F7EFE5;
+    --text-light: #D7C8BA;
+    --shadow: rgba(0, 0, 0, 0.45);
+    --surface: #1F1B18;
+    --surface-muted: #171411;
+    --surface-soft: #2B2414;
+    --border-color: rgba(247, 239, 229, 0.16);
+    --nav-bg: rgba(31, 27, 24, 0.94);
+    --nav-bg-scrolled: rgba(31, 27, 24, 0.98);
+    --overlay-strong: rgba(0, 0, 0, 0.86);
 }
 
 body {
@@ -26,6 +73,7 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--cream);
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .container {
@@ -96,47 +144,44 @@ h3 {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--nav-bg);
     backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 1rem 0;
     box-shadow: 0 2px 20px var(--shadow);
-    padding: 1rem 0;
 }
 
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-<<<<<<< HEAD
-    padding: 0 20px;  /* Add some padding for better spacing */
-=======
-    padding: 0 ;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 .logo-jpeg {
-<<<<<<< HEAD
-    height: 45px;   /* Slightly smaller height */
-    width: auto;    /* Keeps aspect ratio */
+    height: 45px;
+    width: auto;
     display: block;
-    background: none;  /* Remove any background */
-    border: none;      /* Remove any border */
-    outline: none;     /* Remove any outline */
-    filter: none;      /* Remove any filters that might add black outline */
+    background: none;
+    border: none;
+    outline: none;
+    filter: none;
     -webkit-filter: none;
     -moz-filter: none;
     -ms-filter: none;
   }
   .nav-logo {
     display: flex;
-    align-items: center;  /* Perfect vertical alignment */
-    gap: 12px;   /* Slightly increased space between logo and text */
-    margin-left: 0;  /* Remove any left margin */
+    align-items: center;
+    gap: 12px;
+    margin-left: 0;
     padding-left: 0;
-    margin-right: auto;  /* Push to extreme left */
+    margin-right: auto;
+    min-width: 220px;
+    flex-shrink: 0;
   }
   
   .logo-text {
@@ -160,18 +205,6 @@ h3 {
     margin: 0;
     line-height: 1;
     font-weight: 400;
-=======
-    height: 50px;   /* Limits the height */
-    width: auto;    /* Keeps aspect ratio */
-    display: block;
-  }
-  .nav-logo {
-    display: flex;
-    align-items:center;
-    gap: 10px;   /* space between logo and text */
-    margin-left: 0;  /* Remove any left margin */
-    padding-left: 0;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
   }
     
   .pemayangtse-jpeg {
@@ -183,7 +216,10 @@ h3 {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: clamp(0.75rem, 1.7vw, 1.5rem);
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
 }
 
 .nav-link {
@@ -217,6 +253,45 @@ h3 {
     display: none;
     flex-direction: column;
     cursor: pointer;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background: var(--surface-soft);
+    box-shadow: 0 6px 18px var(--shadow);
+    flex-shrink: 0;
+}
+
+.theme-btn {
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-light);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 9px 12px;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.theme-btn:hover,
+.theme-btn.active {
+    background: var(--gradient-primary);
+    color: var(--white);
+}
+
+.theme-btn.active {
+    transform: translateY(-1px);
 }
 
 .hamburger span {
@@ -556,7 +631,6 @@ h3 {
 /* Cultural Calendar Section */
 .cultural-calendar {
     padding: 6rem 0;
-<<<<<<< HEAD
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     position: relative;
     overflow: hidden;
@@ -634,16 +708,12 @@ h3 {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
-=======
-    background: var(--white);
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-container {
     background: var(--white);
     border-radius: 20px;
     padding: 2rem;
-<<<<<<< HEAD
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     margin-bottom: 3rem;
     position: relative;
@@ -658,10 +728,6 @@ h3 {
     right: 0;
     height: 4px;
     background: var(--gradient-primary);
-=======
-    box-shadow: 0 10px 30px var(--shadow);
-    margin-bottom: 3rem;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-header {
@@ -669,117 +735,77 @@ h3 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-<<<<<<< HEAD
     padding-bottom: 1rem;
     border-bottom: 2px solid #f0f0f0;
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-nav {
     background: var(--gradient-primary);
     color: var(--white);
     border: none;
-<<<<<<< HEAD
     width: 45px;
     height: 45px;
-=======
-    width: 40px;
-    height: 40px;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-<<<<<<< HEAD
     transition: all 0.3s ease;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-=======
-    transition: transform 0.3s ease;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-nav:hover {
     transform: scale(1.1);
-<<<<<<< HEAD
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 #current-month {
     color: var(--primary-red);
     margin: 0;
-<<<<<<< HEAD
     font-size: 1.5rem;
     font-weight: 700;
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-<<<<<<< HEAD
     gap: 2px;
     background: #f0f0f0;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-=======
-    gap: 1px;
-    background: var(--text-light);
-    border-radius: 10px;
-    overflow: hidden;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-day {
     background: var(--white);
     padding: 1rem;
-<<<<<<< HEAD
     min-height: 90px;
-=======
-    min-height: 80px;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-<<<<<<< HEAD
     transition: all 0.3s ease;
     position: relative;
     border: 1px solid #f0f0f0;
-=======
-    transition: background 0.3s ease;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-day:hover {
     background: var(--light-gold);
-<<<<<<< HEAD
     transform: scale(1.05);
     z-index: 2;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-day.other-month {
     color: #ccc;
-<<<<<<< HEAD
     background: #fafafa;
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-day.has-event {
     background: var(--gradient-gold);
     color: var(--white);
     font-weight: bold;
-<<<<<<< HEAD
     position: relative;
 }
 
@@ -790,14 +816,11 @@ h3 {
     right: 5px;
     font-size: 0.8rem;
     color: var(--white);
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .calendar-day.today {
     background: var(--gradient-primary);
     color: var(--white);
-<<<<<<< HEAD
     font-weight: bold;
     box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
 }
@@ -805,33 +828,18 @@ h3 {
 /* Enhanced Events Showcase */
 .events-showcase {
     margin-top: 2rem;
-=======
-}
-
-/* Events Showcase */
-.events-showcase h3 {
-    color: var(--primary-red);
-    margin-bottom: 2rem;
-    text-align: center;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .events-grid {
     display: grid;
-<<<<<<< HEAD
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
-=======
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .event-card {
     background: var(--white);
     border-radius: 20px;
-<<<<<<< HEAD
     padding: 0;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -864,24 +872,11 @@ h3 {
 .event-card.featured {
     border: 2px solid var(--gold);
     box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
-=======
-    padding: 2rem;
-    box-shadow: 0 10px 30px var(--shadow);
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    transition: transform 0.3s ease;
-}
-
-.event-card:hover {
-    transform: translateY(-5px);
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .event-date {
     background: var(--gradient-primary);
     color: var(--white);
-<<<<<<< HEAD
     padding: 1.5rem;
     text-align: center;
     min-width: 100px;
@@ -894,29 +889,17 @@ h3 {
 
 .event-card.featured .event-date {
     background: var(--gradient-gold);
-=======
-    padding: 1rem;
-    border-radius: 15px;
-    text-align: center;
-    min-width: 80px;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .event-date .day {
     display: block;
-<<<<<<< HEAD
     font-size: 2rem;
     font-weight: bold;
     line-height: 1;
-=======
-    font-size: 1.5rem;
-    font-weight: bold;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .event-date .month {
     display: block;
-<<<<<<< HEAD
     font-size: 1rem;
     font-weight: 600;
     margin-top: 0.25rem;
@@ -947,29 +930,17 @@ h3 {
     align-self: flex-start;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-=======
-    font-size: 0.9rem;
-}
-
-.event-info {
-    flex: 1;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .event-info h4 {
     color: var(--primary-red);
-<<<<<<< HEAD
     margin: 0;
     font-size: 1.3rem;
     font-weight: 700;
-=======
-    margin-bottom: 0.5rem;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 .event-info p {
     color: var(--text-light);
-<<<<<<< HEAD
     margin: 0;
     line-height: 1.5;
     font-size: 0.95rem;
@@ -1273,18 +1244,11 @@ h3 {
 }
 
 .route {
-=======
-    margin-bottom: 0.5rem;
-}
-
-.event-location {
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
     color: var(--text-light);
     font-size: 0.9rem;
     font-style: italic;
 }
 
-<<<<<<< HEAD
 .package-features ul {
     list-style: none;
     padding: 0;
@@ -1462,21 +1426,6 @@ h3 {
         gap: 1rem;
         text-align: center;
     }
-=======
-.event-btn {
-    background: var(--gradient-gold);
-    color: var(--white);
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: transform 0.3s ease;
-}
-
-.event-btn:hover {
-    transform: scale(1.05);
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 }
 
 /* Booking Section */
@@ -1855,6 +1804,102 @@ h3 {
     color: var(--text-light);
 }
 
+body.dark-mode .navbar,
+body.dark-mode .nav-menu,
+body.dark-mode .tour-card,
+body.dark-mode .monastery-card,
+body.dark-mode .transport-card,
+body.dark-mode .calendar-container,
+body.dark-mode .event-card,
+body.dark-mode .festival-category,
+body.dark-mode .booking-form,
+body.dark-mode .booking-info,
+body.dark-mode .info-card,
+body.dark-mode .tour-info,
+body.dark-mode .gallery-overlay,
+body.dark-mode .modal-content,
+body.dark-mode .monastery-modal-content,
+body.dark-mode .monastery-info-card,
+body.dark-mode .monastery-section,
+body.dark-mode .calendar-day,
+body.dark-mode .signin-modal-content,
+body.dark-mode .snt-modal-content,
+body.dark-mode .cab-modal-content,
+body.dark-mode .air-modal-content,
+body.dark-mode .car-rental-modal-content,
+body.dark-mode .route-card,
+body.dark-mode .package-card,
+body.dark-mode .package-info,
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea {
+    background-color: var(--surface);
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .hero,
+body.dark-mode .transportation,
+body.dark-mode .booking,
+body.dark-mode .monastery-actions,
+body.dark-mode .tour-info-panel {
+    background: var(--surface-muted);
+}
+
+body.dark-mode .virtual-tours,
+body.dark-mode .gallery,
+body.dark-mode .footer,
+body.dark-mode .cultural-calendar {
+    background: var(--cream);
+}
+
+body.dark-mode .tour-features span,
+body.dark-mode .day-plan,
+body.dark-mode .calendar-tabs .tab-btn,
+body.dark-mode .event-actions,
+body.dark-mode .festival-category,
+body.dark-mode .car-rental-features,
+body.dark-mode .car-rental-amenities {
+    background: var(--surface-soft);
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    color-scheme: dark;
+}
+
+@media (max-width: 1080px) and (min-width: 769px) {
+    .nav-logo {
+        min-width: auto;
+    }
+
+    .nav-logo span,
+    .signin-btn span,
+    .theme-btn span {
+        display: none;
+    }
+
+    .nav-menu {
+        gap: 0.65rem;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+    }
+
+    .signin-btn {
+        margin-left: 0;
+        padding: 10px 12px;
+    }
+
+    .theme-btn {
+        padding: 9px 11px;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hamburger {
@@ -1872,6 +1917,7 @@ h3 {
         transition: 0.3s;
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
         padding: 2rem 0;
+        gap: 0;
     }
 
     .nav-menu.active {
@@ -1881,7 +1927,14 @@ h3 {
     .nav-menu li {
         margin: 1rem 0;
     }
-<<<<<<< HEAD
+
+    .theme-toggle {
+        margin-left: auto;
+    }
+
+    .theme-btn span {
+        display: none;
+    }
     
     .nav-logo {
         gap: 8px;  /* Reduce gap on mobile */
@@ -1896,10 +1949,8 @@ h3 {
     }
     
     .logo-jpeg {
-        height: 40px;  /* Smaller logo on mobile */
+        height: 40px;
     }
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 
     h1 {
         font-size: 2.5rem;
@@ -1996,11 +2047,7 @@ h3 {
     }
 
     .calendar-grid {
-<<<<<<< HEAD
         gap: 1px;
-=======
-        gap: 0;
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
     }
 
     .calendar-day {
@@ -2008,7 +2055,6 @@ h3 {
         min-height: 60px;
         font-size: 0.8rem;
     }
-<<<<<<< HEAD
     
     .calendar-tabs {
         flex-direction: column;
@@ -2056,8 +2102,6 @@ h3 {
     .festival-icon {
         align-self: center;
     }
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 
     .gallery-filters {
         flex-direction: column;
@@ -2136,7 +2180,6 @@ html {
     background: var(--dark-red);
 }
 
-<<<<<<< HEAD
 /* Monastery Popup Modals */
 .monastery-modal {
     display: none;
@@ -4017,7 +4060,731 @@ html {
     }
 }
 
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
+/* Repair pass: navigation, virtual tours, themes, and responsive polish */
+.navbar {
+    min-height: 76px;
+}
 
+.nav-container {
+    max-width: 1280px;
+}
 
+.nav-logo {
+    min-width: 210px;
+}
+
+.nav-menu {
+    min-width: 0;
+}
+
+.nav-link,
+.signin-btn,
+.theme-btn {
+    white-space: nowrap;
+}
+
+.theme-toggle {
+    position: relative;
+}
+
+.hero,
+.virtual-tours,
+.transportation,
+.cultural-calendar,
+.booking,
+.gallery {
+    color: var(--text-dark);
+}
+
+.tour-card,
+.transport-card,
+.booking-form,
+.booking-info,
+.info-card,
+.event-card,
+.calendar-container,
+.monastery-card,
+.festival-category,
+.modal-content,
+.monastery-modal-content,
+.signin-modal-content,
+.snt-modal-content,
+.cab-modal-content,
+.air-modal-content,
+.car-rental-modal-content {
+    background-color: var(--surface);
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+}
+
+.tour-info p,
+.transport-card p,
+.transport-card li,
+.booking-info p,
+.info-card p,
+.event-info p,
+.festival-details p,
+.monastery-info p,
+.section-header p {
+    color: var(--text-light);
+}
+
+.modal {
+    background-color: var(--overlay-strong);
+}
+
+.modal-content {
+    width: min(1120px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    margin: 16px auto;
+    border-radius: 14px;
+}
+
+.tour-viewer {
+    height: min(82vh, 760px);
+}
+
+.tour-header {
+    min-height: 64px;
+    gap: 1rem;
+}
+
+.tour-header h3 {
+    margin: 0;
+    font-size: clamp(1.1rem, 2vw, 1.55rem);
+}
+
+.tour-container {
+    min-height: 0;
+}
+
+.panorama-view {
+    min-width: 0;
+    min-height: 420px;
+    background: var(--surface-muted);
+    overflow: hidden;
+}
+
+.panorama-view iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.tour-controls-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.hotspot {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0;
+    cursor: pointer;
+    pointer-events: auto;
+    background: transparent;
+    z-index: 6;
+}
+
+.hotspot-marker {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 6px rgba(183, 28, 28, 0.25), 0 8px 20px rgba(0, 0, 0, 0.28);
+    animation: pulse 2s infinite;
+}
+
+.tour-instructions {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    max-width: min(420px, calc(100% - 32px));
+    background: rgba(17, 16, 14, 0.82);
+    color: #fff;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    pointer-events: none;
+    font-size: 0.92rem;
+}
+
+.tour-instructions p {
+    margin: 0;
+    color: inherit;
+}
+
+.tour-info-panel {
+    background: var(--surface-soft);
+    color: var(--text-dark);
+    border-left: 1px solid var(--border-color);
+    min-width: 280px;
+}
+
+.tour-info-panel p,
+.tour-info-panel li {
+    color: var(--text-light);
+}
+
+.tour-info-panel.collapsed {
+    display: none;
+}
+
+.control-btn.active,
+.control-btn:focus-visible,
+.hotspot:focus-visible,
+.theme-btn:focus-visible,
+.signin-btn:focus-visible,
+.nav-link:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+}
+
+.active-viewpoint {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+}
+
+.active-viewpoint strong,
+.active-viewpoint span {
+    display: block;
+}
+
+body.dark-mode {
+    --primary-red: #FF857F;
+    --gold: #F3C969;
+    --saffron: #E2A44B;
+    --dark-red: #B73A3A;
+    --cream: #0F1115;
+    --light-gold: #272114;
+    --text-dark: #F5F1EA;
+    --text-light: #CFC4B7;
+    --surface: #181B20;
+    --surface-muted: #101217;
+    --surface-soft: #23272F;
+    --border-color: rgba(245, 241, 234, 0.16);
+    --nav-bg: rgba(16, 18, 23, 0.94);
+    --nav-bg-scrolled: rgba(16, 18, 23, 0.985);
+    --overlay-strong: rgba(0, 0, 0, 0.86);
+    --shadow: rgba(0, 0, 0, 0.52);
+    --gradient-primary: linear-gradient(135deg, #E85D55, #9D2C35);
+    --gradient-gold: linear-gradient(135deg, #F3C969, #C8872F);
+}
+
+body.dark-mode .hero {
+    background: radial-gradient(circle at 15% 15%, rgba(243, 201, 105, 0.12), transparent 32%),
+        linear-gradient(135deg, #101217 0%, #1C2027 100%);
+}
+
+body.dark-mode .virtual-tours,
+body.dark-mode .transportation,
+body.dark-mode .cultural-calendar,
+body.dark-mode .booking,
+body.dark-mode .gallery {
+    background: var(--surface-muted);
+}
+
+body.dark-mode .calendar-day.other-month,
+body.dark-mode .event-actions,
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea,
+body.dark-mode .calendar-tabs .tab-btn,
+body.dark-mode .tour-features span {
+    background: var(--surface-soft);
+    color: var(--text-dark);
+}
+
+body.dark-mode .footer {
+    background: #0A0C10;
+}
+
+body.dark-mode .footer-section p,
+body.dark-mode .footer-section a,
+body.dark-mode .footer-bottom {
+    color: var(--text-light);
+}
+
+body.dark-mode .nav-link,
+body.dark-mode .nav-logo h2,
+body.dark-mode .form-group label,
+body.dark-mode .monastery-info-card li strong {
+    color: var(--text-dark);
+}
+
+body.dark-mode .nav-logo span {
+    color: var(--text-light);
+}
+
+body.dark-mode .btn-primary,
+body.dark-mode .signin-btn,
+body.dark-mode .theme-btn.active,
+body.dark-mode .calendar-nav,
+body.dark-mode .control-btn {
+    color: #fff;
+}
+
+@media (max-width: 1180px) {
+    .nav-container {
+        gap: 0.75rem;
+    }
+
+    .nav-logo {
+        min-width: auto;
+    }
+
+    .nav-logo span {
+        display: none;
+    }
+
+    .nav-menu {
+        gap: 0.7rem;
+    }
+
+    .nav-link {
+        font-size: 0.92rem;
+    }
+
+    .signin-btn {
+        margin-left: 0;
+        padding: 10px 12px;
+    }
+
+    .signin-btn span,
+    .theme-btn span {
+        display: none;
+    }
+}
+
+@media (max-width: 860px) {
+    .navbar {
+        min-height: 68px;
+        padding: 0.65rem 0;
+    }
+
+    .nav-container {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 0.75rem;
+    }
+
+    .nav-logo {
+        min-width: 0;
+    }
+
+    .nav-logo h2 {
+        font-size: 1.15rem;
+    }
+
+    .logo-jpeg {
+        height: 40px;
+    }
+
+    .hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        background: var(--surface);
+    }
+
+    .theme-toggle {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .hamburger {
+        grid-column: 3;
+        grid-row: 1;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 68px;
+        left: auto;
+        right: 16px;
+        width: min(320px, calc(100vw - 32px));
+        max-height: calc(100vh - 88px);
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.35rem;
+        padding: 0.75rem;
+        background: var(--surface);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        box-shadow: 0 18px 40px var(--shadow);
+        transform: translateY(-12px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.22s ease, transform 0.22s ease;
+        text-align: left;
+    }
+
+    .nav-menu.active {
+        left: auto;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .nav-menu li {
+        margin: 0;
+    }
+
+    .nav-link,
+    .signin-btn {
+        width: 100%;
+        justify-content: flex-start;
+        display: flex;
+        border-radius: 10px;
+        padding: 0.8rem 0.9rem;
+    }
+
+    .nav-link:hover {
+        background: var(--surface-soft);
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .tour-viewer {
+        height: calc(100vh - 32px);
+    }
+
+    .tour-container {
+        flex-direction: column;
+    }
+
+    .panorama-view {
+        flex: 1 1 auto;
+        min-height: 48vh;
+    }
+
+    .tour-info-panel {
+        flex: 0 0 auto;
+        min-width: 0;
+        max-height: 28vh;
+        border-left: 0;
+        border-top: 1px solid var(--border-color);
+        padding: 1rem;
+    }
+
+    .tour-instructions {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .nav-logo h2 {
+        font-size: 1rem;
+    }
+
+    .theme-toggle {
+        padding: 3px;
+    }
+
+    .theme-btn {
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .modal-content {
+        width: 100vw;
+        height: 100vh;
+        max-height: none;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .tour-viewer {
+        height: 100vh;
+    }
+
+    .tour-header {
+        padding: 0.85rem 3.8rem 0.85rem 1rem;
+    }
+
+    .control-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Dark-mode card system: consistent surfaces, contrast, and nested panels */
+body.dark-mode {
+    --card-bg: #1A1E24;
+    --card-bg-elevated: #20252D;
+    --card-bg-soft: #272D36;
+    --card-border: rgba(245, 241, 234, 0.14);
+    --card-shadow: 0 18px 44px rgba(0, 0, 0, 0.42);
+    --card-shadow-hover: 0 24px 58px rgba(0, 0, 0, 0.56);
+    --accent-red: #FF7A70;
+    --accent-gold: #F1C766;
+    --accent-gold-soft: rgba(241, 199, 102, 0.14);
+    --accent-red-soft: rgba(255, 122, 112, 0.13);
+}
+
+body.dark-mode .tour-card,
+body.dark-mode .transport-card,
+body.dark-mode .event-card,
+body.dark-mode .festival-category,
+body.dark-mode .festival-item,
+body.dark-mode .booking-form,
+body.dark-mode .booking-info,
+body.dark-mode .info-card,
+body.dark-mode .monastery-card,
+body.dark-mode .monastery-section,
+body.dark-mode .monastery-info-card,
+body.dark-mode .route-card,
+body.dark-mode .package-card,
+body.dark-mode .snt-features,
+body.dark-mode .snt-amenities,
+body.dark-mode .cab-features,
+body.dark-mode .cab-amenities,
+body.dark-mode .air-features,
+body.dark-mode .air-amenities,
+body.dark-mode .car-rental-features,
+body.dark-mode .car-rental-amenities,
+body.dark-mode .signin-form,
+body.dark-mode .calendar-container {
+    background: linear-gradient(180deg, var(--card-bg-elevated), var(--card-bg));
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    color: var(--text-dark);
+}
+
+body.dark-mode .tour-card:hover,
+body.dark-mode .transport-card:hover,
+body.dark-mode .event-card:hover,
+body.dark-mode .festival-item:hover,
+body.dark-mode .route-card:hover,
+body.dark-mode .package-card:hover,
+body.dark-mode .monastery-card:hover {
+    box-shadow: var(--card-shadow-hover);
+}
+
+body.dark-mode .tour-info,
+body.dark-mode .monastery-info,
+body.dark-mode .event-info,
+body.dark-mode .package-info,
+body.dark-mode .route-info,
+body.dark-mode .booking-form form,
+body.dark-mode .signin-form {
+    background: transparent;
+    color: var(--text-dark);
+}
+
+body.dark-mode .event-actions,
+body.dark-mode .car-rental-footer,
+body.dark-mode .snt-footer,
+body.dark-mode .cab-footer,
+body.dark-mode .air-footer,
+body.dark-mode .monastery-actions {
+    background: var(--card-bg-soft);
+    border-top: 1px solid var(--card-border);
+}
+
+body.dark-mode .tour-info h3,
+body.dark-mode .transport-card h3,
+body.dark-mode .event-info h4,
+body.dark-mode .festival-details h4,
+body.dark-mode .booking-info h3,
+body.dark-mode .info-card h4,
+body.dark-mode .monastery-info h3,
+body.dark-mode .monastery-section h3,
+body.dark-mode .monastery-info-card h4,
+body.dark-mode .package-info h4,
+body.dark-mode .route-cities,
+body.dark-mode .snt-routes h3,
+body.dark-mode .cab-routes h3,
+body.dark-mode .air-routes h3,
+body.dark-mode .car-rental-packages h3,
+body.dark-mode .car-rental-features h4,
+body.dark-mode .car-rental-amenities h4,
+body.dark-mode .snt-features h4,
+body.dark-mode .snt-amenities h4,
+body.dark-mode .cab-features h4,
+body.dark-mode .cab-amenities h4,
+body.dark-mode .air-features h4,
+body.dark-mode .air-amenities h4 {
+    color: var(--accent-gold);
+}
+
+body.dark-mode .section-header h2,
+body.dark-mode #current-month {
+    color: var(--accent-red);
+}
+
+body.dark-mode .tour-info p,
+body.dark-mode .transport-card p,
+body.dark-mode .transport-card li,
+body.dark-mode .event-info p,
+body.dark-mode .event-details span,
+body.dark-mode .festival-details p,
+body.dark-mode .festival-monasteries,
+body.dark-mode .booking-info p,
+body.dark-mode .info-card p,
+body.dark-mode .monastery-info p,
+body.dark-mode .monastery-section p,
+body.dark-mode .monastery-info-card li,
+body.dark-mode .monastery-info-card p,
+body.dark-mode .package-details,
+body.dark-mode .package-features li,
+body.dark-mode .route-details,
+body.dark-mode .distance,
+body.dark-mode .included,
+body.dark-mode .extra-fare,
+body.dark-mode .tax,
+body.dark-mode .snt-features li,
+body.dark-mode .snt-amenities li,
+body.dark-mode .cab-features li,
+body.dark-mode .cab-amenities li,
+body.dark-mode .air-features li,
+body.dark-mode .air-amenities li,
+body.dark-mode .car-rental-features li,
+body.dark-mode .car-rental-amenities li {
+    color: var(--text-light);
+}
+
+body.dark-mode .tour-features span,
+body.dark-mode .event-badge,
+body.dark-mode .festival-monasteries,
+body.dark-mode .route,
+body.dark-mode .duration,
+body.dark-mode .airport-location,
+body.dark-mode .airlines,
+body.dark-mode .flight-type,
+body.dark-mode .included,
+body.dark-mode .extra-fare {
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+    border: 1px solid rgba(241, 199, 102, 0.2);
+}
+
+body.dark-mode .transport-icon,
+body.dark-mode .festival-icon,
+body.dark-mode .event-date,
+body.dark-mode .event-card.featured .event-date,
+body.dark-mode .calendar-day.has-event,
+body.dark-mode .price {
+    background: linear-gradient(135deg, #B73A3A, #D99D45);
+    color: #FFFFFF;
+}
+
+body.dark-mode .event-card.featured,
+body.dark-mode .package-card.featured {
+    border-color: rgba(241, 199, 102, 0.45);
+    box-shadow: 0 20px 52px rgba(241, 199, 102, 0.12), var(--card-shadow);
+}
+
+body.dark-mode .calendar-grid {
+    background: var(--card-border);
+    box-shadow: none;
+}
+
+body.dark-mode .calendar-header,
+body.dark-mode .monastery-info-card li,
+body.dark-mode .event-actions {
+    border-color: var(--card-border);
+}
+
+body.dark-mode .calendar-day {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--text-dark);
+}
+
+body.dark-mode .calendar-day:hover,
+body.dark-mode .calendar-day.other-month {
+    background: var(--card-bg-soft);
+}
+
+body.dark-mode .calendar-day.other-month {
+    color: rgba(207, 196, 183, 0.48);
+}
+
+body.dark-mode .calendar-day.today {
+    background: linear-gradient(135deg, #A7353D, #E85D55);
+    color: #FFFFFF;
+}
+
+body.dark-mode .gallery-overlay {
+    background: linear-gradient(180deg, rgba(15, 17, 21, 0.1), rgba(15, 17, 21, 0.92));
+    color: #FFFFFF;
+}
+
+body.dark-mode .gallery-overlay h4,
+body.dark-mode .gallery-overlay p {
+    color: #FFFFFF;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea,
+body.dark-mode #booking-form input,
+body.dark-mode #booking-form select,
+body.dark-mode #booking-form textarea {
+    background: #111419;
+    border-color: rgba(245, 241, 234, 0.2);
+    color: var(--text-dark);
+}
+
+body.dark-mode .form-group input::placeholder,
+body.dark-mode .form-group textarea::placeholder,
+body.dark-mode #booking-form input::placeholder,
+body.dark-mode #booking-form textarea::placeholder {
+    color: rgba(207, 196, 183, 0.62);
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus,
+body.dark-mode .form-group textarea:focus,
+body.dark-mode #booking-form input:focus,
+body.dark-mode #booking-form select:focus,
+body.dark-mode #booking-form textarea:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px rgba(241, 199, 102, 0.16);
+}
+
+body.dark-mode .btn-secondary,
+body.dark-mode .event-btn.secondary,
+body.dark-mode .forgot-password {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+}
+
+body.dark-mode .btn-secondary:hover,
+body.dark-mode .event-btn.secondary:hover {
+    background: var(--accent-gold);
+    color: #16120A;
+}
+
+body.dark-mode .event-btn.primary,
+body.dark-mode .book-now-btn,
+body.dark-mode .transport-btn,
+body.dark-mode .signin-submit-btn,
+body.dark-mode .gallery-btn {
+    background: linear-gradient(135deg, #D9544D, #A7353D);
+    color: #FFFFFF;
+}

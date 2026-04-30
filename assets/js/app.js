@@ -1,4 +1,4 @@
-// DOM Elements
+﻿// DOM Elements
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
@@ -15,8 +15,8 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 const galleryItems = document.querySelectorAll('.gallery-item');
 const bookingForm = document.getElementById('booking-form');
 const eventButtons = document.querySelectorAll('.event-btn');
+const themeButtons = document.querySelectorAll('.theme-btn');
 
-<<<<<<< HEAD
 // Monastery Popup Elements
 const rumtekCard = document.getElementById('rumtek-card');
 const rumtekModal = document.getElementById('rumtek-modal');
@@ -49,27 +49,24 @@ const cabClose = document.querySelector('.cab-close');
 const airModal = document.getElementById('air-modal');
 const airClose = document.querySelector('.air-close');
 
-=======
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
 // Global Variables
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
 
-// 360° panorama sources — paste your real iframe embed codes below
+// 360Â° panorama sources
 // Use full iframe embeds or direct src iframes (keep as strings)
 const panoramaSources = {
 	rumtek: {
 		default: `<iframe src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4noWi1qh5jxMZzabXbBqL2vsQd_A9N0RgJNoe0MMeKfOiROlmMXx1Rf5euDbotpEoRkW26k-MqvyzCdtjkRcGBlE0Ae-j81bUnjANKnKFj8izyOsExZoM1oYZ0sdJPvz5A6d7VA6eQ=s1360-w1360-h1020-rw" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
 		hotspots: {
-			'golden-stupa': `<iframe src="https://panoraven.com/en/embed/Fz2Jql4EEN
-" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
+			'golden-stupa': `<iframe src="https://panoraven.com/en/embed/Fz2Jql4EEN" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
 			'prayer-hall': `<iframe src="https://panoraven.com/en/embed/Fz2Jql4EEN" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
 			'meditation-area': `<iframe src="https://panoraven.com/en/embed/p4oPiL3aWE" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`
 		}
 	},
 	pemayangtse: {
-		default: `<iframe src="PASTE_PEMAYANGTSE_MAIN_EMBED" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
+		default: `<iframe src="https://panoraven.com/en/embed/bNdyKBHVou" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
 		hotspots: {
 			'main-hall': `<iframe src="https://panoraven.com/en/embed/bNdyKBHVou" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
 			'sanghthok-palace': `<iframe src="https://panoraven.com/en/embed/Bo4868yjx7" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
@@ -77,7 +74,7 @@ const panoramaSources = {
 		}
 	},
 	tashiding: {
-		default: `<iframe src="PASTE_TASHIDING_MAIN_EMBED" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
+		default: `<iframe src="https://panoraven.com/en/embed/vwmmwmDBKZ" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
 		hotspots: {
 			'mani-stones': `<iframe src="https://panoraven.com/en/embed/vwmmwmDBKZ" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
 			'chortens': `<iframe src="https://panoraven.com/en/embed/8aghUBWM9u" width="100%" height="520" frameborder="0" allowfullscreen loading="lazy"></iframe>`,
@@ -85,6 +82,24 @@ const panoramaSources = {
 		}
 	}
 };
+
+function applyTheme(theme) {
+	const selectedTheme = theme === 'dark' ? 'dark' : 'cream';
+	document.body.classList.toggle('dark-mode', selectedTheme === 'dark');
+	document.body.classList.toggle('cream-mode', selectedTheme === 'cream');
+	themeButtons.forEach(button => {
+		const isActive = button.dataset.theme === selectedTheme;
+		button.classList.toggle('active', isActive);
+		button.setAttribute('aria-pressed', String(isActive));
+	});
+	localStorage.setItem('monastery-theme', selectedTheme);
+}
+
+themeButtons.forEach(button => {
+	button.addEventListener('click', () => applyTheme(button.dataset.theme));
+});
+
+applyTheme(localStorage.getItem('monastery-theme') || 'cream');
 
 // Navigation Toggle
 if (hamburger && navMenu) {
@@ -130,141 +145,134 @@ if (monasteryCards.length > 1) {
 	setInterval(showNextMonastery, 4000);
 }
 
+const tourDetails = {
+	rumtek: {
+		title: 'Rumtek Monastery Virtual Tour',
+		info: `<h4>Rumtek Monastery</h4><p>Seat of the Karmapa lineage with the Golden Stupa, prayer halls, monastery library, and meditation spaces.</p>`,
+		hotspotText: {
+			'golden-stupa': 'Golden Stupa viewpoint',
+			'prayer-hall': 'Main prayer hall viewpoint',
+			'meditation-area': 'Meditation area viewpoint'
+		}
+	},
+	pemayangtse: {
+		title: 'Pemayangtse Monastery Virtual Tour',
+		info: `<h4>Pemayangtse Monastery</h4><p>Historic Nyingma monastery known for murals, Sanghthok Palace, chortens, and sacred relics.</p>`,
+		hotspotText: {
+			'main-hall': 'Main hall viewpoint',
+			'sanghthok-palace': 'Sanghthok Palace viewpoint',
+			'chortens': 'Chortens viewpoint'
+		}
+	},
+	tashiding: {
+		title: 'Tashiding Monastery Virtual Tour',
+		info: `<h4>Tashiding Monastery</h4><p>Revered hilltop monastery with sacred chortens, mani stones, prayer wheels, and Himalayan views.</p>`,
+		hotspotText: {
+			'mani-stones': 'Mani stones viewpoint',
+			'chortens': 'Sacred chortens viewpoint',
+			'viewpoint': 'Mountain viewpoint'
+		}
+	}
+};
+
 // Virtual Tour Modal
-//
 tourButtons.forEach(button => {
 	button.addEventListener('click', (e) => {
 		e.preventDefault();
-		const tourType = button.getAttribute('data-tour');
-		openTourModal(tourType);
+		openTourModal(button.getAttribute('data-tour'));
 	});
 });
 
 function openTourModal(tourType) {
 	if (!modal) return;
+	const details = tourDetails[tourType] || {};
+	const sources = panoramaSources[tourType];
 	const tourTitle = document.getElementById('tour-title');
 	const tourInfoPanel = document.getElementById('tour-info-panel');
-	const tourTitles = {
-		rumtek: 'Rumtek Monastery Virtual Tour',
-		pemayangtse: 'Pemayangtse Monastery Virtual Tour',
-		tashiding: 'Tashiding Monastery Virtual Tour'
-	};
-	if (tourTitle) tourTitle.textContent = tourTitles[tourType] || 'Virtual Tour';
-	const tourInfo = {
-		rumtek: `
-			<h4>Rumtek Monastery</h4>
-			<p>The Rumtek Monastery, also known as the Dharma Chakra Centre, is a Tibetan Buddhist monastery in Sikkim. It is the seat of the Karmapa lineage and a key monastery of the Kagyu tradition.</p>
-			<h5>Key Features:</h5>
-			<ul>
-				<li>Golden Stupa containing relics of the 16th Karmapa</li>
-				<li>Main prayer hall with intricate murals</li>
-				<li>Monastery library with ancient texts</li>
-				<li>Meditation halls for monks</li>
-			</ul>
-			<p><strong>Click on hotspots</strong> to explore different areas and learn more.</p>
-		`,
-		pemayangtse: `
-			<h4>Pemayangtse Monastery</h4>
-			<p>One of Sikkim's oldest monasteries from the Nyingma tradition, renowned for its architecture and spiritual legacy.</p>
-			<h5>Key Features:</h5>
-			<ul>
-				<li>Sanghthok Palace seven-tiered structure</li>
-				<li>Ancient murals and thangkas</li>
-				<li>Prayer wheels and chortens</li>
-				<li>Sacred relics and artifacts</li>
-			</ul>
-			<p><strong>Click on hotspots</strong> to discover its treasures.</p>
-		`,
-		tashiding: `
-			<h4>Tashiding Monastery</h4>
-			<p>A revered hilltop monastery famed for its spiritual significance and panoramic Himalayan views.</p>
-			<h5>Key Features:</h5>
-			<ul>
-				<li>Sacred chortens and prayer wheels</li>
-				<li>Panoramic Himalayan vistas</li>
-				<li>Ancient stupas and monuments</li>
-				<li>Peaceful meditation areas</li>
-			</ul>
-			<p><strong>Click on hotspots</strong> to explore the sacred grounds.</p>
-		`
-	};
+
+	if (tourTitle) tourTitle.textContent = details.title || 'Virtual Tour';
 	if (tourInfoPanel) {
-		tourInfoPanel.innerHTML = tourInfo[tourType] || '<p>Tour information will be displayed here.</p>';
+		tourInfoPanel.classList.remove('collapsed');
+		tourInfoPanel.innerHTML = details.info || '<p>Click hotspots to explore more.</p>';
 	}
-	const panoramaView = document.getElementById('panorama-view');
-	if (panoramaView) {
-		panoramaView.innerHTML = `
-			<div class="loading-spinner">
-				<i class="fas fa-spinner fa-spin"></i>
-				<p>Loading virtual tour...</p>
-			</div>
-		`;
-		setTimeout(() => {
-			panoramaView.innerHTML = `
-				<div class="virtual-tour-placeholder">
-					<div class="tour-controls-overlay">
-						<div class="hotspot" style="top: 30%; left: 20%;" data-info="Golden Stupa">
-							<div class="hotspot-marker"></div>
-						</div>
-						<div class="hotspot" style="top: 60%; right: 25%;" data-info="Prayer Hall">
-							<div class="hotspot-marker"></div>
-						</div>
-						<div class="hotspot" style="bottom: 30%; left: 50%;" data-info="Meditation Area">
-							<div class="hotspot-marker"></div>
-						</div>
-					</div>
-					<div class="tour-instructions">
-						<p>🖱️ Click and drag to explore the 360° view</p>
-						<p>📍 Click on hotspots for more information</p>
-					</div>
-				</div>
-			`;
-			const hotspots = document.querySelectorAll('.hotspot');
-			hotspots.forEach(hotspot => {
-				hotspot.addEventListener('click', () => {
-					const info = hotspot.getAttribute('data-info');
-					showHotspotInfo(info);
-				});
-			});
-		}, 1200);
-	}
+
+	renderPanorama(tourType, sources?.default || '', details);
 	modal.style.display = 'block';
+	modal.setAttribute('aria-hidden', 'false');
 	document.body.style.overflow = 'hidden';
 }
 
-function showHotspotInfo(info) {
-	const tourInfoPanel = document.getElementById('tour-info-panel');
-	const hotspotInfo = {
-		'Golden Stupa': 'The Golden Stupa holds sacred relics and is deeply revered. It symbolizes the enlightened mind of the Buddha.',
-		'Prayer Hall': 'The main prayer hall hosts daily prayers and ceremonies with exquisite murals depicting Buddhist teachings.',
-		'Meditation Area': 'A serene area for personal meditation practice, fostering focus and spiritual development.'
-	};
-	if (!tourInfoPanel) return;
-	const baseInfoHtml = tourInfoPanel.innerHTML;
-	tourInfoPanel.innerHTML = `
-		<h4>${info}</h4>
-		<p>${hotspotInfo[info] || 'Information about this area will be displayed here.'}</p>
-		<button class="btn btn-secondary" id="back-to-tour-info">Back to Tour Info</button>
-	`;
-	const backBtn = document.getElementById('back-to-tour-info');
-	if (backBtn) backBtn.addEventListener('click', () => { tourInfoPanel.innerHTML = baseInfoHtml; });
-}
+function renderPanorama(tourType, embed, details) {
+	const panoramaView = document.getElementById('panorama-view');
+	if (!panoramaView) return;
+	const hotspots = panoramaSources[tourType]?.hotspots || {};
+	const positions = [
+		'style="top: 26%; left: 22%;"',
+		'style="top: 58%; right: 22%;"',
+		'style="bottom: 24%; left: 48%;"'
+	];
+	const hotspotHtml = Object.keys(hotspots).map((key, index) => {
+		const label = details.hotspotText?.[key] || key.replace(/-/g, ' ');
+		return `
+			<button class="hotspot" type="button" data-key="${key}" ${positions[index % positions.length]} aria-label="${label}" title="${label}">
+				<span class="hotspot-marker"></span>
+			</button>
+		`;
+	}).join('');
 
-// Close modal
-if (closeModal && modal) {
-	closeModal.addEventListener('click', () => {
-		modal.style.display = 'none';
-		document.body.style.overflow = 'auto';
+	panoramaView.innerHTML = `
+		${embed || '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Tour source unavailable.</p></div>'}
+		<div class="tour-controls-overlay">
+			${hotspotHtml}
+			<div class="tour-instructions">
+				<p>Use the panorama controls to look around. Select a dot to switch viewpoints.</p>
+			</div>
+		</div>
+	`;
+
+	panoramaView.querySelectorAll('.hotspot').forEach(hotspot => {
+		hotspot.addEventListener('click', () => {
+			const key = hotspot.getAttribute('data-key');
+			const nextEmbed = panoramaSources[tourType]?.hotspots?.[key];
+			if (nextEmbed) {
+				renderPanorama(tourType, nextEmbed, details);
+				updateTourInfo(tourType, key);
+			}
+		});
 	});
 }
+
+function updateTourInfo(tourType, key) {
+	const tourInfoPanel = document.getElementById('tour-info-panel');
+	if (!tourInfoPanel) return;
+	const details = tourDetails[tourType] || {};
+	const label = details.hotspotText?.[key] || key.replace(/-/g, ' ');
+	tourInfoPanel.innerHTML = `
+		${details.info || ''}
+		<div class="active-viewpoint">
+			<strong>Current viewpoint</strong>
+			<span>${label}</span>
+		</div>
+	`;
+}
+
+function closeTourModal() {
+	if (!modal) return;
+	modal.style.display = 'none';
+	modal.setAttribute('aria-hidden', 'true');
+	document.body.style.overflow = 'auto';
+}
+
+if (closeModal && modal) {
+	closeModal.addEventListener('click', closeTourModal);
+}
 window.addEventListener('click', (e) => {
-	if (e.target === modal) {
-		modal.style.display = 'none';
-		document.body.style.overflow = 'auto';
-	}
+	if (e.target === modal) closeTourModal();
+});
+window.addEventListener('keydown', (e) => {
+	if (e.key === 'Escape' && modal?.style.display === 'block') closeTourModal();
 });
 
-// Fullscreen
 const fullscreenBtn = document.getElementById('fullscreen');
 if (fullscreenBtn) {
 	fullscreenBtn.addEventListener('click', () => {
@@ -273,6 +281,15 @@ if (fullscreenBtn) {
 	});
 }
 
+const infoToggleBtn = document.getElementById('info-toggle');
+if (infoToggleBtn) {
+	infoToggleBtn.addEventListener('click', () => {
+		const tourInfoPanel = document.getElementById('tour-info-panel');
+		if (!tourInfoPanel) return;
+		tourInfoPanel.classList.toggle('collapsed');
+		infoToggleBtn.classList.toggle('active', !tourInfoPanel.classList.contains('collapsed'));
+	});
+}
 // Calendar
 const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const events = {
@@ -434,32 +451,26 @@ window.addEventListener('scroll', () => {
 	const navbar = document.querySelector('.navbar');
 	if (!navbar) return;
 	if (window.scrollY > 100) {
-		navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+		navbar.style.background = 'var(--nav-bg-scrolled)';
 		navbar.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
 	} else {
-		navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+		navbar.style.background = 'var(--nav-bg)';
 		navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
 	}
 });
 
-// Inject helper styles (virtual tour placeholder, booking confirmation, calendar headers)
+// Inject helper styles for generated elements.
 (function injectHelperStyles() {
 	const style = document.createElement('style');
 	style.textContent = `
-		.virtual-tour-placeholder { width: 100%; height: 100%; background: linear-gradient(45deg, #f0f0f0, #e0e0e0); position: relative; display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--text-light); }
-		.tour-controls-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
-		.hotspot { position: absolute; width: 30px; height: 30px; cursor: pointer; z-index: 10; }
-		.hotspot-marker { width: 100%; height: 100%; background: var(--gradient-primary); border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 10px rgba(0,0,0,0.3); animation: pulse 2s infinite; }
 		@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
-		.tour-instructions { position: absolute; bottom: 20px; left: 20px; background: rgba(0,0,0,0.7); color: white; padding: 1rem; border-radius: 10px; font-size: 0.9rem; }
 		.booking-confirmation { text-align: center; }
 		.booking-details { background: var(--light-gold); padding: 1rem; border-radius: 10px; margin: 1rem 0; text-align: left; }
-		.calendar-day-header { padding: 1rem; text-align: center; font-weight: bold; background: var(--primary-red); color: var(--white); }
+		.calendar-day-header { padding: 1rem; text-align: center; font-weight: bold; background: var(--primary-red); color: #fff; }
 	`;
 	document.head.appendChild(style);
 })();
 
-<<<<<<< HEAD
 // Monastery Popup Functions
 function openRumtekModal() {
     if (rumtekModal) {
@@ -1070,85 +1081,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-// Virtual Tour Modal Function
-=======
-document.addEventListener('DOMContentLoaded', () => { console.log('Monastery360 interactivity initialized'); });
-
-// Override openTourModal with 360° iframe implementation using panoramaSources
-// Paste your iframe URLs into panoramaSources at the top of this file
->>>>>>> 421e57b1e313aa85165862097f848b5f56e27e5a
-openTourModal = function(tourType) {
-    if (!modal) return;
-    const tourTitle = document.getElementById('tour-title');
-    const tourInfoPanel = document.getElementById('tour-info-panel');
-    const panoramaView = document.getElementById('panorama-view');
-
-    const tourTitles = {
-        rumtek: 'Rumtek Monastery Virtual Tour',
-        pemayangtse: 'Pemayangtse Monastery Virtual Tour',
-        tashiding: 'Tashiding Monastery Virtual Tour'
-    };
-    if (tourTitle) tourTitle.textContent = tourTitles[tourType] || 'Virtual Tour';
-
-    // Load default 360 embed if available, else loader
-    if (panoramaView) {
-        const def = panoramaSources[tourType]?.default;
-        panoramaView.innerHTML = def ? def : `
-            <div class="loading-spinner">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Loading virtual tour...</p>
-            </div>
-        `;
-    }
-
-    // Info panel
-    if (tourInfoPanel) {
-        const infoByTour = {
-            rumtek: `<h4>Rumtek Monastery</h4><p>Seat of the Karmapa lineage with Golden Stupa, prayer halls and library.</p>`,
-            pemayangtse: `<h4>Pemayangtse Monastery</h4><p>Historic Nyingma monastery with murals, Sanghthok Palace and chortens.</p>`,
-            tashiding: `<h4>Tashiding Monastery</h4><p>Revered hilltop monastery with sacred chortens, mani stones and vistas.</p>`
-        };
-        tourInfoPanel.innerHTML = infoByTour[tourType] || '<p>Click hotspots to explore more.</p>';
-    }
-
-    // Build hotspots overlay using keys from mapping
-    if (panoramaView) {
-        const hs = panoramaSources[tourType]?.hotspots || {};
-        const hotspotHtml = `
-            <div class="tour-controls-overlay">
-                ${Object.keys(hs).map((k, i) => {
-                    const pos = [
-                        'style="top: 28%; left: 22%;"',
-                        'style="top: 60%; right: 24%;"',
-                        'style="bottom: 28%; left: 50%;"'
-                    ][i % 3];
-                    const label = k.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-                    return `
-                        <div class="hotspot" data-key="${k}" ${pos} title="${label}">
-                            <div class="hotspot-marker"></div>
-                        </div>
-                    `;
-                }).join('')}
-                <div class="tour-instructions">
-                    <p>📍 Click hotspots to switch viewpoints</p>
-                </div>
-            </div>
-        `;
-        panoramaView.insertAdjacentHTML('beforeend', hotspotHtml);
-
-        const hotspots = panoramaView.querySelectorAll('.hotspot');
-        hotspots.forEach(hotspot => {
-            hotspot.addEventListener('click', () => {
-                const key = hotspot.getAttribute('data-key');
-                const embed = panoramaSources[tourType]?.hotspots?.[key];
-                if (embed) {
-                    panoramaView.innerHTML = embed + hotspotHtml;
-                }
-            });
-        });
-    }
-
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-};
